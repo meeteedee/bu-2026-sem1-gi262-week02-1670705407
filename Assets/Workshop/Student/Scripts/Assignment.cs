@@ -11,21 +11,21 @@ namespace Assignment
         public void Start()
         {
             AS01_RandomItemDrop();
-            // AS02_NestedLoopForCreate2DMap();
-            // AS03_NestedLoopForMakingWallAround();
-            // AS04_AttackEnemy();
-            // AS05_DynamicIterationLoop();
-            // AS06_WhileLoopAndArray();
-            // AS07_HealTargetAtIndex();
-            // AS08_RandomPickingDialogue();
-            // AS09_MultiplicationTable();
-            // AS10_FindSummationFromZeroToNUsingWhileLoop();
-            // AS11_SpawnEnemies();
-            // StartCoroutine(AS12_CountTime());
-            // AS13_SumOfNumbersInRow();
-            // AS14_SumOfNumbersInColumn();
-            // AS15_MakeTheTriangle();
-            // AS16_MultiplicationTableOf_2_3_and_4();
+            AS02_NestedLoopForCreate2DMap();
+            AS03_NestedLoopForMakingWallAround();
+            AS04_AttackEnemy();
+            AS05_DynamicIterationLoop();
+            AS06_WhileLoopAndArray();
+            AS07_HealTargetAtIndex();
+            AS08_RandomPickingDialogue();
+            AS09_MultiplicationTable();
+            AS10_FindSummationFromZeroToNUsingWhileLoop();
+            AS11_SpawnEnemies();
+            StartCoroutine(AS12_CountTime());
+            AS13_SumOfNumbersInRow();
+            AS14_SumOfNumbersInColumn();
+            AS15_MakeTheTriangle();
+            AS16_MultiplicationTableOf_2_3_and_4();
             // EX_01_TicTacToeGame_TurnPlay();
 
         }
@@ -46,7 +46,9 @@ namespace Assignment
         public GameObject[] as01_items;
         public void AS01_RandomItemDrop()
         {
-            throw new NotImplementedException();
+            var randomIndex = UnityEngine.Random.Range(0, as01_items.Length);
+            var spawnedObj = Instantiate(as01_items[randomIndex]);
+            Debug.Log("Got item: " + spawnedObj.name);
         }
 
         /*
@@ -108,7 +110,17 @@ namespace Assignment
         public int as02_rows;
         public void AS02_NestedLoopForCreate2DMap()
         {
-            throw new NotImplementedException();
+            for (int r = 0; r < as02_rows; r++)
+            {
+                string rowOutput = "";
+                for (int c = 0; c < as02_columns; c++)
+                {
+                    int tileIdx = UnityEngine.Random.Range(0, as02_floorTiles.Length);
+                    GameObject tileObj = Instantiate(as02_floorTiles[tileIdx], new Vector3(c, r, 0), Quaternion.identity);
+                    rowOutput += tileObj.name;
+                }
+                Debug.Log(rowOutput);
+            }
         }
 
         /*
@@ -202,7 +214,17 @@ namespace Assignment
         public int as03_rows;
         public void AS03_NestedLoopForMakingWallAround()
         {
-            throw new NotImplementedException();
+            for (int row = 0; row < as03_rows; row++)
+            {
+                for (int col = 0; col < as03_columns; col++)
+                {
+                    bool isBorder = (col == 0 || col == as03_columns - 1 || row == 0 || row == as03_rows - 1);
+                    if (isBorder)
+                    {
+                        Instantiate(as03_wall, new Vector3(col, row, 0), Quaternion.identity);
+                    }
+                }
+            }
         }
 
         /*
@@ -237,7 +259,15 @@ namespace Assignment
         public int as04_target;
         public void AS04_AttackEnemy()
         {
-            throw new NotImplementedException();
+            as04_enemyHP[0] = Mathf.Max(0, as04_enemyHP[0] - as04_damage);
+            Debug.Log("FirstEnemy hp : " + as04_enemyHP[0]);
+
+            int lastIndex = as04_enemyHP.Length - 1;
+            as04_enemyHP[lastIndex] = Mathf.Max(0, as04_enemyHP[lastIndex] - as04_damage);
+            Debug.Log("LastEnemy hp : " + as04_enemyHP[lastIndex]);
+
+            as04_enemyHP[as04_target] = Mathf.Max(0, as04_enemyHP[as04_target] - as04_damage);
+            Debug.Log(string.Format("TargetEnemy {0} hp : {1}", as04_target, as04_enemyHP[as04_target]));
         }
 
         /*
@@ -260,7 +290,12 @@ namespace Assignment
         public int as05_n;
         public void AS05_DynamicIterationLoop()
         {
-            throw new NotImplementedException();
+            int count = 0;
+            while (count < as05_n)
+            {
+                Debug.Log(count);
+                count++;
+            }
         }
 
         /*
@@ -309,7 +344,21 @@ namespace Assignment
         public string[] as06_ironManSuitNames;
         public void AS06_WhileLoopAndArray()
         {
-            throw new NotImplementedException();
+            Debug.Log("======Log by One======");
+            int idx1 = 0;
+            while (idx1 < as06_ironManSuitNames.Length)
+            {
+                Debug.Log(as06_ironManSuitNames[idx1]);
+                idx1++;
+            }
+
+            Debug.Log("======Log by Two======");
+            int idx2 = 0;
+            while (idx2 < as06_ironManSuitNames.Length)
+            {
+                Debug.Log(as06_ironManSuitNames[idx2]);
+                idx2 += 2;
+            }
         }
 
         /*
@@ -347,7 +396,15 @@ namespace Assignment
         public int as07_targetIndex;
         public void AS07_HealTargetAtIndex()
         {
-            throw new NotImplementedException();
+            as07_heroHPs[0] += as07_heal;
+            Debug.Log("FirstHero hp : " + as07_heroHPs[0]);
+
+            int lastHeroIdx = as07_heroHPs.Length - 1;
+            as07_heroHPs[lastHeroIdx] += as07_heal;
+            Debug.Log("LastHero hp : " + as07_heroHPs[lastHeroIdx]);
+
+            as07_heroHPs[as07_targetIndex] += as07_heal;
+            Debug.Log(string.Format("TargetHero {0} hp : {1}", as07_targetIndex, as07_heroHPs[as07_targetIndex]));
         }
 
         /*
@@ -374,7 +431,9 @@ namespace Assignment
         public string[] as08_dialogues;
         public void AS08_RandomPickingDialogue()
         {
-            throw new NotImplementedException();
+            int pick = UnityEngine.Random.Range(0, as08_dialogues.Length);
+            string chosenText = as08_dialogues[pick];
+            Debug.Log(chosenText);
         }
 
         /*
@@ -400,7 +459,11 @@ namespace Assignment
         public int as09_n;
         public void AS09_MultiplicationTable()
         {
-            throw new NotImplementedException();
+            for (int multiplier = 1; multiplier <= 12; multiplier++)
+            {
+                int val = as09_n * multiplier;
+                Debug.Log(as09_n + "x" + multiplier + "=" + val);
+            }
         }
 
         /*
@@ -426,8 +489,14 @@ namespace Assignment
         public int as10_n;
         public void AS10_FindSummationFromZeroToNUsingWhileLoop()
         {
-            throw new NotImplementedException();
-
+            int total = 0;
+            int current = 1;
+            while (current <= as10_n)
+            {
+                total += current;
+                current++;
+            }
+            Debug.Log("ผลรวมของ n จาก 1 ถึง " + as10_n + " คือ " + total);
         }
 
         /*
@@ -453,7 +522,12 @@ namespace Assignment
         public GameObject as11_enemyPrefab;
         public void AS11_SpawnEnemies()
         {
-            throw new NotImplementedException();
+            for (int index = 0; index < as11_enemyHPs.Length; index++)
+            {
+                float posX = index + 1;
+                Instantiate(as11_enemyPrefab, new Vector3(posX, 0f, 0f), Quaternion.identity);
+                Debug.Log("new enemy at position x=" + posX);
+            }
         }
 
         /*
@@ -466,7 +540,14 @@ namespace Assignment
         public float as12_countTime;
         public IEnumerator AS12_CountTime()
         {
-            throw new NotImplementedException();
+            float elapsedTime = 0f;
+            while (elapsedTime < as12_countTime)
+            {
+                elapsedTime += Time.deltaTime;
+                Debug.Log("timer: " + elapsedTime.ToString("F2"));
+                yield return null;
+            }
+            Debug.Log("End timer: " + as12_countTime);
         }
 
         /*
@@ -524,7 +605,13 @@ namespace Assignment
         public void AS13_SumOfNumbersInRow()
         {
             var matrix = as13_matrix.Get2DArray();
-            throw new NotImplementedException();
+            int[,] grid = as13_matrix.Get2DArray();
+            int rowSum = 0;
+            for (int c = 0; c < grid.GetLength(1); c++)
+            {
+                rowSum += grid[as13_row, c];
+            }
+            Debug.Log(rowSum);        
         }
 
         /*
@@ -580,7 +667,13 @@ namespace Assignment
         public void AS14_SumOfNumbersInColumn()
         {
             var matrix = as14_matrix.Get2DArray();
-            throw new NotImplementedException();
+            int[,] gridData = as14_matrix.Get2DArray();
+            int colSum = 0;
+            for (int r = 0; r < gridData.GetLength(0); r++)
+            {
+                colSum += gridData[r, as14_column];
+            }
+            Debug.Log(colSum);
         }
 
         /*
@@ -630,7 +723,11 @@ namespace Assignment
         public int as15_size;
         public void AS15_MakeTheTriangle()
         {
-            throw new NotImplementedException();
+            for (int row = 1; row <= as15_size; row++)
+            {
+                string line = new string('*', row);
+                Debug.Log(line);
+            }
         }
 
         /*
@@ -659,7 +756,13 @@ namespace Assignment
          */
         public void AS16_MultiplicationTableOf_2_3_and_4()
         {
-            throw new NotImplementedException();
+            for (int i = 1; i <= 12; i++)
+            {
+                string col2 = $"2x{i}={2 * i}";
+                string col3 = $"3x{i}={3 * i}";
+                string col4 = $"4x{i}={4 * i}";
+                Debug.Log($"{col2}\t{col3}\t{col4}");
+            }
         }
 
         #endregion
